@@ -1,0 +1,25 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Project-1.conn'
+    subscriptionId: '60d310a0-2df1-4441-b9e4-19a6f0d5ccc1'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'sknwRG'
+    location: 'Southeast Asia'
+    templateLocation: 'Linked artifact'
+    csmFile: 'CreateWebApp/azuredeploy.json'
+    overrideParameters: 'https://raw.githubusercontent.com/Sawkyawwai/Project-1/main/azuredeploy.json'
+    deploymentMode: 'Incremental'
+    deploymentName: 'Project-1'
